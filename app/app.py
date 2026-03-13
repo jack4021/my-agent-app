@@ -14,6 +14,6 @@ async def start_chat():
 
 @cl.on_message
 async def main(message: cl.Message):
-    user_input = message.content
+    user_input = str(message.content)
     response = run_agent(user_input, agent, config)
     await cl.Message(content=response).send()
