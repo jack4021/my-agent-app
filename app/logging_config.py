@@ -1,3 +1,9 @@
+"""Logging configuration for the agent application.
+
+This module sets up structured logging with both file and console handlers,
+using rotation to prevent excessive log file growth.
+"""
+
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -9,6 +15,14 @@ BACKUP_COUNT = 3
 
 
 def setup_logging():
+    """Configure logging with file and console handlers.
+
+    Sets up a rotating file handler and console handler with formatted output.
+    Also reduces verbosity for third-party libraries (httpx, primp, chainlit).
+
+    Returns:
+        logging.Logger: The configured root logger instance.
+    """
     LOG_DIR.mkdir(exist_ok=True)
 
     logger = logging.getLogger()

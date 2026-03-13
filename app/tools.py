@@ -1,7 +1,14 @@
+"""Tools for the agent application.
+
+This module provides LangChain tools for file operations, web search,
+image search, news search, and website browsing capabilities.
+"""
+
 import re
 import urllib.request
 import urllib.parse
 import asyncio
+
 # noinspection PyPackageRequirements
 import nest_asyncio
 from datetime import datetime
@@ -146,7 +153,7 @@ def _get_extension(url: str) -> str:
 
 @tool
 def image_search(
-        query: str, max_results: int = 5, safesearch: str = "off", size: str | None = None
+    query: str, max_results: int = 5, safesearch: str = "off", size: str | None = None
 ) -> str:
     """Search for images using DuckDuckGo and save them to the imgs folder. Default values
     should be used unless specifically requested.
