@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis:8.0-rc1
+    volumes:
+      - redis_data:/data
+  python:
+    image: agenttinker-v2
+    working_dir: /app
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - "$PWD/app:/app"
+    command: "chainlit run app.py --host 0.0.0.0"
+
+volumes:
+  redis_data:

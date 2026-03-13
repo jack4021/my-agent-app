@@ -1,0 +1,12 @@
+.idea/
+.venv/
+.vscode/
+.chainlit/
+.files/
+.ruff_cache/
+__pycache__/
+
+app/.env
+workspace/
+memories/
+logs/
