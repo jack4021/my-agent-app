@@ -10,3 +10,4 @@ langgraph
 chainlit
 langgraph-checkpoint-redis
 beautifulsoup4
+aiosqlite

@@ -10,3 +10,4 @@ app/.env
 workspace/
 memories/
 logs/
+data/
