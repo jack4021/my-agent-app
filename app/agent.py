@@ -61,6 +61,7 @@ def create_agent():
     except Exception as e:
         logger.warning(f"Redis connection failed, using in-memory store and saver: {e}")
 
+    logger.info(f"Using model: {MODEL}")
     return create_deep_agent(
         model=ChatOpenRouter(model=MODEL),
         store=store,

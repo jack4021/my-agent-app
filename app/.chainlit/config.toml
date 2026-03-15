@@ -46,7 +46,7 @@ allowed_executables = ["npx", "uvx"]
 
 [UI]
 name = "Assistant"
-confirm_new_chat = true
+confirm_new_chat = false
 cot = "full"
 alert_style = "classic"
 logo_file_url = ""
