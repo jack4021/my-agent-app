@@ -10,6 +10,7 @@ from langgraph.checkpoint.redis import RedisSaver
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.store.redis import RedisStore
 from langgraph.store.memory import InMemoryStore
+from pathlib import Path
 
 # noinspection PyPackageRequirements
 from redis import Redis
@@ -26,9 +27,7 @@ from logging_config import logger
 
 load_dotenv()
 
-SYSTEM_PROMPT = """
-You are a helpful assistant with access to file system tools, web search, and browsing capabilities.
-""".strip()
+SYSTEM_PROMPT = (Path(__file__).parent / "prompts" / "system.md").read_text()
 
 
 def create_agent():
