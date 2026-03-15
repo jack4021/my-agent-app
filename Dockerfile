@@ -1,9 +1,12 @@
-FROM python:3.13
+FROM python:3.13-slim
+
+RUN pip install uv
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-RUN playwright install
-RUN playwright install-deps
-RUN rm requirements.txt
+COPY pyproject.toml .python-version ./
+RUN uv sync --frozen
+RUN uvx playwright install
+RUN uvx playwright install-deps
+
+COPY app/ ./app/

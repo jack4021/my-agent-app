@@ -1,0 +1,21 @@
+[project]
+name = "my-agent-app"
+version = "0.1.0"
+description = "AI Agent application"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain",
+    "langchain-openrouter",
+    "python-dotenv",
+    "deepagents",
+    "ddgs",
+    "langchain-community",
+    "playwright",
+    "langchain-core",
+    "langgraph",
+    "chainlit",
+    "langgraph-checkpoint-redis",
+    "beautifulsoup4",
+    "aiosqlite",
+    "sqlalchemy",
+]
