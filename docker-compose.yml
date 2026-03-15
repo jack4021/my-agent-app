@@ -9,7 +9,7 @@ services:
     environment:
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - CHAINLIT_AUTH_SECRET=${CHAINLIT_AUTH_SECRET}
-      - MODEL=inception/mercury-2
+      # - MODEL=inception/mercury-2
     ports:
       - "8000:8000"
     volumes:
