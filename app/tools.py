@@ -137,12 +137,29 @@ IMGS_DIR = WORKING_DIR / "imgs"
 
 
 def _sanitize_filename(name: str) -> str:
+    """Sanitize a filename by removing special characters and limiting length.
+
+    Args:
+        name: The original filename or title to sanitize.
+
+    Returns:
+        A sanitized string safe for use as a filename, limited to 100 characters.
+    """
     name = re.sub(r"[^a-zA-Z0-9\s]", "_", name)
     name = name.strip()
     return name[:100] if len(name) > 100 else name
 
 
 def _get_extension(url: str) -> str:
+    """Extract the file extension from an image URL.
+
+    Args:
+        url: The URL of the image file.
+
+    Returns:
+        The lowercase file extension including the dot (e.g., '.jpg', '.png').
+        Defaults to '.jpg' if no recognized extension is found.
+    """
     parsed = urllib.parse.urlparse(url)
     path = parsed.path.lower()
     for ext in [".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp"]:
