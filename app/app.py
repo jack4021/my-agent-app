@@ -5,12 +5,15 @@ handling message events and displaying responses.
 """
 
 import asyncio
+from pathlib import Path
+
 import chainlit as cl
 from chainlit.data.sql_alchemy import SQLAlchemyDataLayer
 from agent import create_agent, run_agent
 from logging_config import logger
 
 DB_PATH = "/app/data/chainlit.db"
+SCHEMA_PATH = Path(__file__).parent / "sql" / "schema.sql"
 
 
 async def init_db():
@@ -18,83 +21,7 @@ async def init_db():
     import aiosqlite
 
     logger.info("Initializing SQLite database...")
-    # noinspection SqlNoDataSourceInspection
-    schema = ("\n"
-              "CREATE TABLE IF NOT EXISTS users\n"
-              "(\n"
-              "    \"id\"         TEXT PRIMARY KEY,\n"
-              "    \"identifier\" TEXT NOT NULL UNIQUE,\n"
-              "    \"metadata\"   TEXT NOT NULL,\n"
-              "    \"createdAt\"  TEXT\n"
-              ");\n"
-              "\n"
-              "CREATE TABLE IF NOT EXISTS threads\n"
-              "(\n"
-              "    \"id\"             TEXT PRIMARY KEY,\n"
-              "    \"createdAt\"      TEXT,\n"
-              "    \"name\"           TEXT,\n"
-              "    \"userId\"         TEXT,\n"
-              "    \"userIdentifier\" TEXT,\n"
-              "    \"tags\"           TEXT,\n"
-              "    \"metadata\"       TEXT,\n"
-              "    FOREIGN KEY (\"userId\") REFERENCES users (\"id\") ON DELETE CASCADE\n"
-              ");\n"
-              "\n"
-              "CREATE TABLE IF NOT EXISTS steps\n"
-              "(\n"
-              "    \"id\"            TEXT PRIMARY KEY,\n"
-              "    \"name\"          TEXT    NOT NULL,\n"
-              "    \"type\"          TEXT    NOT NULL,\n"
-              "    \"threadId\"      TEXT    NOT NULL,\n"
-              "    \"parentId\"      TEXT,\n"
-              "    \"streaming\"     INTEGER NOT NULL,\n"
-              "    \"waitForAnswer\" INTEGER,\n"
-              "    \"isError\"       INTEGER,\n"
-              "    \"metadata\"      TEXT,\n"
-              "    \"tags\"          TEXT,\n"
-              "    \"input\"         TEXT,\n"
-              "    \"output\"        TEXT,\n"
-              "    \"createdAt\"     TEXT,\n"
-              "    \"command\"       TEXT,\n"
-              "    \"start\"         TEXT,\n"
-              "    \"end\"           TEXT,\n"
-              "    \"generation\"    TEXT,\n"
-              "    \"showInput\"     TEXT,\n"
-              "    \"language\"      TEXT,\n"
-              "    \"indent\"        INTEGER,\n"
-              "    \"defaultOpen\"   INTEGER,\n"
-              "    \"autoCollapse\"  INTEGER,\n"
-              "    FOREIGN KEY (\"threadId\") REFERENCES threads (\"id\") ON DELETE CASCADE\n"
-              ");\n"
-              "\n"
-              "CREATE TABLE IF NOT EXISTS elements\n"
-              "(\n"
-              "    \"id\"          TEXT PRIMARY KEY,\n"
-              "    \"threadId\"    TEXT,\n"
-              "    \"type\"        TEXT,\n"
-              "    \"url\"         TEXT,\n"
-              "    \"chainlitKey\" TEXT,\n"
-              "    \"name\"        TEXT NOT NULL,\n"
-              "    \"display\"     TEXT,\n"
-              "    \"objectKey\"   TEXT,\n"
-              "    \"size\"        TEXT,\n"
-              "    \"page\"        INTEGER,\n"
-              "    \"language\"    TEXT,\n"
-              "    \"forId\"       TEXT,\n"
-              "    \"mime\"        TEXT,\n"
-              "    \"props\"       TEXT,\n"
-              "    FOREIGN KEY (\"threadId\") REFERENCES threads (\"id\") ON DELETE CASCADE\n"
-              ");\n"
-              "\n"
-              "CREATE TABLE IF NOT EXISTS feedbacks\n"
-              "(\n"
-              "    \"id\"       TEXT PRIMARY KEY,\n"
-              "    \"forId\"    TEXT    NOT NULL,\n"
-              "    \"threadId\" TEXT    NOT NULL,\n"
-              "    \"value\"    INTEGER NOT NULL,\n"
-              "    \"comment\"  TEXT,\n"
-              "    FOREIGN KEY (\"threadId\") REFERENCES threads (\"id\") ON DELETE CASCADE\n"
-              ");\n")
+    schema = SCHEMA_PATH.read_text()
 
     async with aiosqlite.connect(DB_PATH) as db:
         await db.executescript(schema)
