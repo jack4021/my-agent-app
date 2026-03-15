@@ -4,7 +4,7 @@ This module provides functions to create a deep agent with file system,
 web search, and browsing capabilities. It supports both Redis-backed
 and in-memory storage/checkpointing.
 """
-
+import os
 from deepagents import create_deep_agent
 from langgraph.checkpoint.redis import RedisSaver
 from langgraph.checkpoint.memory import InMemorySaver
@@ -27,6 +27,7 @@ from logging_config import logger
 
 load_dotenv()
 
+MODEL = os.getenv("MODEL", "x-ai/grok-4.1-fast")
 SYSTEM_PROMPT = (Path(__file__).parent / "prompts" / "system.md").read_text()
 
 
@@ -61,7 +62,7 @@ def create_agent():
         logger.warning(f"Redis connection failed, using in-memory store and saver: {e}")
 
     return create_deep_agent(
-        model=ChatOpenRouter(model="x-ai/grok-4.1-fast"),
+        model=ChatOpenRouter(model=MODEL),
         store=store,
         checkpointer=checkpointer,
         backend=backend,
