@@ -17,6 +17,8 @@ services:
       - ./tools.py:/usr/src/tools.py
       - ./agent.py:/usr/src/agent.py
       - ./logging_config.py:/usr/src/logging_config.py
+      - ./prompts:/usr/src/prompts
+      - ./sql:/usr/src/sql
     command: "uv run chainlit run app.py --host 0.0.0.0"
 
 volumes:
