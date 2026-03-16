@@ -9,3 +9,6 @@ LICENSE
 *.log
 *.tmp
 .vscode
+docker-compose.yml
+.aiignore
+Dockerfile
