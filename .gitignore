@@ -8,7 +8,7 @@ __pycache__/
 workspace/
 memories/
 logs/
-data/
+data/*.db
 
 app/.chainlit/translations/*
 app/.env

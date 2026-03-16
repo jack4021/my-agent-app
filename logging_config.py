@@ -8,7 +8,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-LOG_DIR = Path("logs")
+LOG_DIR = Path("../logs")
 LOG_FILE = LOG_DIR / "agent.log"
 MAX_BYTES = 5 * 1024 * 1024
 BACKUP_COUNT = 3

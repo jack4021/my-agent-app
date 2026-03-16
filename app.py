@@ -12,7 +12,7 @@ from chainlit.data.sql_alchemy import SQLAlchemyDataLayer
 from agent import create_agent, run_agent
 from logging_config import logger
 
-DB_PATH = "/app/data/chainlit.db"
+DB_PATH = "./data/chainlit.db"
 SCHEMA_PATH = Path(__file__).parent / "sql" / "schema.sql"
 
 
@@ -41,7 +41,7 @@ async def auth_callback(username: str, password: str):
 @cl.data_layer
 def get_data_layer():
     asyncio.get_event_loop().run_until_complete(init_db())
-    return SQLAlchemyDataLayer(conninfo="sqlite+aiosqlite:////app/data/chainlit.db")
+    return SQLAlchemyDataLayer(conninfo="sqlite+aiosqlite:///data/chainlit.db")
 
 
 # Initialize agent once

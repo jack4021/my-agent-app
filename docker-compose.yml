@@ -5,14 +5,14 @@ services:
       - redis_data:/data
   python:
     image: my-agent-uv
-    working_dir: /app
+    working_dir: /usr/src
     environment:
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - CHAINLIT_AUTH_SECRET=${CHAINLIT_AUTH_SECRET}
     ports:
       - "8000:8000"
     volumes:
-      - sqlite_data:/app/data
+      - sqlite_data:/usr/src/data
     command: "uv run chainlit run app.py --host 0.0.0.0"
 
 volumes:
