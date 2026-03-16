@@ -12,3 +12,6 @@ LICENSE
 docker-compose.yml
 .aiignore
 Dockerfile
+data/chainlit.db
+data/.gitkeep
+workspace/

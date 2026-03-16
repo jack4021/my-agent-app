@@ -13,6 +13,10 @@ services:
       - "8000:8000"
     volumes:
       - sqlite_data:/usr/src/data
+      - ./app.py:/usr/src/app.py
+      - ./tools.py:/usr/src/tools.py
+      - ./agent.py:/usr/src/agent.py
+      - ./logging_config.py:/usr/src/logging_config.py
     command: "uv run chainlit run app.py --host 0.0.0.0"
 
 volumes:
